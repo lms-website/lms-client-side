@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+  --primary: #db5300;
+  --light-primary: #f6a26f;
+  --light-grey: #9ca3af;
+  --dark-grey: #404040;
+  --body-bg: #f9fafb;
+}
+@layer utilities {
+  .sidebar .active {
+    @apply bg-primary;
+  }
+  .sidebar .active span {
+    @apply text-white;
+  }
+  .sidebar .active svg {
+    @apply text-white;
+  }
+}
+/* Sidebar */
+.sidebar li:hover {
+  background: var(--light-primary);
+}
+.sidebar .icon,
+.sidebar .sidebar_text {
+  color: var(--light-grey);
+}
+.sidebar a:hover .icon,
+.sidebar a:hover .sidebar_text,
+.sidebar li:hover .icon,
+.sidebar li:hover .sidebar_text {
+  color: white;
+}
+/* end Sidebar */

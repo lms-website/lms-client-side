@@ -9,6 +9,9 @@ const Register = lazy(() => import("./features/Auth/Register"));
 // auth layout
 const Auth_Layout = lazy(() => import("./Pages/AuthLayout/AuthLayout"));
 const Home = lazy(() => import("./Pages/AuthLayout/Home"));
+// admin
+const All_Users = lazy(() => import("./features/Admin/AllUsers"));
+
 const App = () => {
   const isAuth = true;
   return (
@@ -18,6 +21,7 @@ const App = () => {
           <Route path="/" element={<Auth_Layout />}>
             <Route index element={<Navigate to="home" replace />} />
             <Route path="home" element={<Home />} />
+            <Route path="users" element={<All_Users />} />
           </Route>
         ) : (
           <Route path="/" element={<UnAuth_Layout />}>

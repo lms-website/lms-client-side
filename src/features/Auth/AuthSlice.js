@@ -3,6 +3,8 @@ import Cookies from "js-cookie";
 
 const initialState = {
   token: Cookies.get("authenticationToken"),
+  avatar: Cookies.get("userAvatar") || null,
+  full_name: Cookies.get("fullName") || "Alaa Ashref",
 };
 export const AuthSlice = createSlice({
   name: "auth",

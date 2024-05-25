@@ -8,6 +8,9 @@ export default {
         "light-primary": "var(--light-primary)",
         body: "var(--body-bg)",
         "light-grey": "var(--light-grey)",
+        "extra-light-grey": "var(--extra-light-grey)",
+        grey: "var(--grey)",
+        black: "var(--black)",
       },
       keyframes: {
         leap: {

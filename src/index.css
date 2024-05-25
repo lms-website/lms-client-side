@@ -4,9 +4,12 @@
 :root {
   --primary: #db5300;
   --light-primary: #f6a26f;
-  --light-grey: #9ca3af;
+  --grey: #746e6c;
+  --extra-light-grey: #ede7e4;
+  --light-grey: #aea7a5;
   --dark-grey: #404040;
-  --body-bg: #f9fafb;
+  --body-bg: #fafafa;
+  --black: #001a1a;
 }
 @layer utilities {
   .sidebar .active {

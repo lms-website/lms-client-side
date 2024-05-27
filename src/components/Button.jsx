@@ -32,7 +32,7 @@ const Button = ({
   const base_style = `flex items-center gap-2  justify-center text-center py-3 px-4 outline-none rounded-lg transition-all duration-300 ease-in-out text-base font-bold shadow-main-shadow hover:shadow-hover-shadow `;
   const styles = {
     primary: `${base_style} bg-primary text-white hover:bg-primary-light text-white  `,
-    "primary-outline": `${base_style} border border-primary hover:bg-extra-light-grey text-primary`,
+    "primary-outline": `${base_style} border border-primary hover:bg-primary hover:text-white text-primary`,
     unactive: `${base_style} bg-white text-extra-light-grey`,
   };
   if (to)

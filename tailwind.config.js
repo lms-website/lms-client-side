@@ -3,6 +3,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        Arvo: ["Arvo", "serif"],
+      },
       colors: {
         primary: "var(--primary)",
         "light-primary": "var(--light-primary)",
@@ -12,6 +15,7 @@ export default {
         grey: "var(--grey)",
         "dark-grey": "var(--dark-grey)",
         black: "var(--black)",
+        error: "var(--error)",
       },
       keyframes: {
         leap: {

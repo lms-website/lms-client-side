@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,8 +11,20 @@
   --dark-grey: #404040;
   --body-bg: #fafafa;
   --black: #001a1a;
+  --error: #c31010;
 }
 @layer utilities {
+  ::-webkit-scrollbar {
+    @apply w-[6px] h-3;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 bg-clip-padding;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-light-grey rounded;
+  }
   .sidebar .active {
     @apply bg-primary;
   }
@@ -37,3 +50,23 @@
   color: white;
 }
 /* end Sidebar */
+/* start pagination */
+.pagination .icon-grey {
+  color: var(--grey);
+}
+.pagination {
+  border-color: var(--grey);
+}
+.pagination.disabled .icon-grey {
+  color: var(--extra-light-grey);
+}
+.pagination.disabled {
+  border-color: var(--extra-light-grey);
+}
+.pagination:not(.disabled):hover {
+  border-color: var(--primary);
+}
+.pagination:not(.disabled):hover .icon-grey {
+  color: var(--primary);
+}
+/* end pagination */

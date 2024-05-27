@@ -42,7 +42,7 @@ const Sidebar = () => {
         {sidebarItems?.map((item) => (
           <li
             key={item.id}
-            className="transition-all duration-300 ease-in-out rounded-lg"
+            className="outline-none  transition-all duration-300 ease-in-out rounded-lg"
           >
             <NavLink
               to={item?.link}

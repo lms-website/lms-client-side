@@ -12,6 +12,8 @@ const Home = lazy(() => import("./Pages/AuthLayout/Home"));
 // admin
 const All_Users = lazy(() => import("./features/Admin/AllUsers"));
 
+const PageNotFound = lazy(() => import("./Pages/PageNotFound"));
+
 const App = () => {
   const isAuth = true;
   return (
@@ -30,6 +32,7 @@ const App = () => {
             <Route path="register" element={<Register />} />
           </Route>
         )}
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Suspense>
   );

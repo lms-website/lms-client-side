@@ -7,7 +7,7 @@ const AuthLayout = () => {
   return (
     <div className=" h-screen bg-body flex ">
       <Sidebar />
-      <div className="h-full px-4 flex-1 overflow-y-auto py-4 flex flex-col gap-4">
+      <div className="h-full px-4 flex-1 overflow-y-auto py-4 flex flex-col gap-8">
         <Header />
         <Outlet />
       </div>

@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { apiKey } from "../Utils/helper";
+import { apiKey } from "./../Utils/helper";
 
 function useGetData(endpoint) {
   const { token } = useSelector((store) => store.auth);
@@ -18,10 +18,12 @@ function useGetData(endpoint) {
     try {
       setLoading(true);
       const response = await axios.get(`${apiKey + endpoint}`, {
-        headers: { Authorization: `Bearer ${token}` },
-        signal,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-      const fetchedData = await response.data;
+      const fetchedData = response.data;
+
       setData(fetchedData);
     } catch (err) {
       console.error("Error fetching data:", err.message);

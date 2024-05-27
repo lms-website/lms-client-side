@@ -36,22 +36,22 @@ const sidebarItems = [
 ];
 const Sidebar = () => {
   return (
-    <div className="w-[250px] bg-white h-screen overflow-y-auto py-4 px-3">
-      <img src={Logo} alt="logo" className="w-[95px] mb-5" />
-      <ul className=" sidebar flex flex-col gap-[6px]">
+    <div className="w-[70px] md:w-[250px] bg-white h-screen overflow-y-auto py-4 px-3">
+      <img src={Logo} alt="logo" className=" w-[40px] md:w-[85px] mb-5" />
+      <ul className=" sidebar flex flex-col gap-2">
         {sidebarItems?.map((item) => (
           <li
             key={item.id}
-            className="  transition-all duration-300 ease-in-out rounded-lg"
+            className="transition-all duration-300 ease-in-out rounded-lg"
           >
             <NavLink
               to={item?.link}
               className="w-full flex py-3 rounded-lg px-3 items-center gap-2"
             >
-              <span className="group-hove:text-white transition-all duration-300 ease-in-out">
+              <span className="flex w-6 h-full transition-all duration-300 ease-in-out">
                 {item?.icon}
               </span>
-              <span className="text-[18px] text-light-grey transition-all duration-300 ease-in-out sidebar_text">
+              <span className="hidden md:flex text-[18px] text-light-grey transition-all duration-300 ease-in-out sidebar_text">
                 {item?.title}
               </span>
             </NavLink>
@@ -61,10 +61,10 @@ const Sidebar = () => {
           role="button"
           className="flex  transition-all duration-300 ease-in-out py-3 rounded-lg px-3 items-center gap-2"
         >
-          <span className="group-hove:text-white transition-all duration-300 ease-in-out">
+          <span className="flex w-6 h-full transition-all duration-300 ease-in-out">
             <LuLogOut className="icon" size={20} />
           </span>
-          <span className="text-[18px] text-light-grey transition-all duration-300 ease-in-out sidebar_text">
+          <span className="hidden md:flex text-[18px] text-light-grey transition-all duration-300 ease-in-out sidebar_text">
             Log out
           </span>
         </li>

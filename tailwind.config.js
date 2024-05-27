@@ -10,6 +10,7 @@ export default {
         "light-grey": "var(--light-grey)",
         "extra-light-grey": "var(--extra-light-grey)",
         grey: "var(--grey)",
+        "dark-grey": "var(--dark-grey)",
         black: "var(--black)",
       },
       keyframes: {

@@ -1,7 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../Ui/Spinner";
-
+/**
+ * Types of buttons =>[primary,primary-outline,unactive]
+ * to=>to make this button redirect to another page
+ * loading=>to show spinner with button
+ * disabled=>to make this button disabled
+ * classname => if you wanna change syle of the button
+ * target=>if you wanna set targer for redirect example values [_blank,_self]
+ * role=>role of button you can use [button,submit]
+ * children=>to pass anything to component
+ * onClick=>to pass any function to this button
+ * _______________________________
+ * example use:
+ * <Button type="primary-outline">click me</Button>
+ *________________________________
+ * example use as link
+ *  <Button to="home">redirect to home</Button>
+ */
 const Button = ({
   children,
   onClick,

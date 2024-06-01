@@ -52,12 +52,12 @@ const TableRow = ({
     console.log("kk");
   };
   useEffect(() => {
-    getData();
+    getData(1);
   }, []);
   return (
     <div className="grid gap-4">
       <div className="flex justify-between gap-1 items-center">
-        <h2 className="text-[20px] font-bold text-dark-grey">{title}</h2>
+        <h2 className="text-[20px] font-bold text-dark-gray">{title}</h2>
         <Button type="primary-outline" onClick={addNewButtonClick}>
           {addNewButtonTitle}
         </Button>
@@ -81,18 +81,18 @@ const TableRow = ({
             data?.data?.map((item) => (
               <tr
                 key={item?._id}
-                className="border-b bg-white  border-extra-light-grey"
+                className="border-b bg-white  border-extra-light-gray"
               >
-                <td className="py-3 text-light-grey capitalize px-2">
+                <td className="py-3 text-light-gray capitalize px-2">
                   {item?.name}
                 </td>
-                <td className="py-3 text-light-grey capitalize px-2">
+                <td className="py-3 text-light-gray capitalize px-2">
                   {item?.email}
                 </td>
-                <td className="py-3 text-light-grey capitalize px-2">
+                <td className="py-3 text-light-gray capitalize px-2">
                   {formateDate(item?.createdAt)}
                 </td>
-                <td className="py-3 text-light-grey capitalize px-2">
+                <td className="py-3 text-light-gray capitalize px-2">
                   <div className="flex items-center gap-2">
                     <span role="button" onClick={handleUpdate}>
                       <LuPenSquare color="#aea7a5" size={20} />
@@ -117,9 +117,9 @@ const TableRow = ({
           }}
           className={`pagination ${
             !previous ? "disabled" : ""
-          } transition-all ease-in-out duration-300 py-2 px-2 border border-light-grey rounded-[5px] flex`}
+          } transition-all ease-in-out duration-300 py-2 px-2 border border-light-gray rounded-[5px] flex`}
         >
-          <LuChevronLeft className="icon-grey" />
+          <LuChevronLeft className="icon-gray" />
         </span>
         <span
           role="button"
@@ -130,9 +130,9 @@ const TableRow = ({
           }}
           className={`pagination ${
             !next ? "disabled" : ""
-          } transition-all ease-in-out duration-300 py-2 px-2 border border-light-grey rounded-[5px] flex`}
+          } transition-all ease-in-out duration-300 py-2 px-2 border border-light-gray rounded-[5px] flex`}
         >
-          <LuChevronRight className="icon-grey" />
+          <LuChevronRight className="icon-gray" />
         </span>
       </div>
     </div>

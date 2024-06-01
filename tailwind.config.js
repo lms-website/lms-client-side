@@ -10,12 +10,17 @@ export default {
         primary: "var(--primary)",
         "light-primary": "var(--light-primary)",
         body: "var(--body-bg)",
-        "light-grey": "var(--light-grey)",
-        "extra-light-grey": "var(--extra-light-grey)",
-        grey: "var(--grey)",
-        "dark-grey": "var(--dark-grey)",
+        "light-gray": "var(--light-gray)",
+        "extra-light-gray": "var(--extra-light-gray)",
+        gray: "var(--gray)",
+        "dark-gray": "var(--dark-gray)",
         black: "var(--black)",
         error: "var(--error)",
+      },
+      boxShadow: {
+        "main-shadow": "0 2px 4px #00293140",
+        "shadow-4": "0 4px 4px #0008141A",
+        "shadow-hover": "0 4px 10px #00081440",
       },
       keyframes: {
         leap: {

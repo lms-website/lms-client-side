@@ -6,7 +6,7 @@ const Header = () => {
 
   return (
     <div className="bg-white flex justify-between items-center gap-4 w-full rounded-xl py-4 px-4 h-[90px] shadow shadow-sm">
-      <span className="text-xl text-dark-grey font-bold ">
+      <span className="text-xl text-dark-gray font-bold ">
         Welcome, {full_name}
       </span>
       {avatar ? (

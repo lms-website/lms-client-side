@@ -1,8 +1,7 @@
 import React from "react";
-import Login from "../../features/Auth/login/Login";
 import { Outlet } from "react-router-dom";
 
-const UnAuthLayout = () => {
+const ProfileContainer = () => {
   return (
     <div>
       <Outlet />
@@ -10,4 +9,4 @@ const UnAuthLayout = () => {
   );
 };
 
-export default UnAuthLayout;
+export default ProfileContainer;

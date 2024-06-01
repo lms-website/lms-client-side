@@ -23,12 +23,12 @@ function Header({ columns, trClassName, thClassName }) {
   return (
     <thead>
       <tr
-        className={`${trClassName} bg-white border-b border-extra-light-grey `}
+        className={`${trClassName} bg-white border-b border-extra-light-gray `}
       >
         {columns.map((column, index) => (
           <th
             key={index}
-            className={`${thClassName} py-3 text-start px-2 text-dark-grey`}
+            className={`${thClassName} py-3 text-start px-2 text-dark-gray`}
           >
             {column}
           </th>

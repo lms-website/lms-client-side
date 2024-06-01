@@ -5,11 +5,11 @@
 :root {
   --primary: #db5300;
   --light-primary: #f6a26f;
-  --grey: #746e6c;
-  --extra-light-grey: #ede7e4;
-  --light-grey: #aea7a5;
-  --dark-grey: #404040;
-  --body-bg: #fafafa;
+  --gray: #746e6c;
+  --extra-light-gray: #ede7e4;
+  --light-gray: #a3a3a3;
+  --dark-gray: #404040;
+  --body-bg: #f9fafb;
   --black: #001a1a;
   --error: #c31010;
 }
@@ -19,11 +19,11 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100 bg-clip-padding;
+    @apply bg-neutral-200 bg-clip-padding;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-light-grey rounded;
+    @apply bg-light-gray rounded;
   }
   .sidebar .active {
     @apply bg-primary;
@@ -41,7 +41,7 @@
 }
 .sidebar .icon,
 .sidebar .sidebar_text {
-  color: var(--light-grey);
+  color: var(--light-gray);
 }
 .sidebar a:hover .icon,
 .sidebar a:hover .sidebar_text,
@@ -52,16 +52,16 @@
 /* end Sidebar */
 /* start pagination */
 .pagination .icon-grey {
-  color: var(--grey);
+  color: var(--gray);
 }
 .pagination {
-  border-color: var(--grey);
+  border-color: var(--gray);
 }
 .pagination.disabled .icon-grey {
-  color: var(--extra-light-grey);
+  color: var(--extra-light-gray);
 }
 .pagination.disabled {
-  border-color: var(--extra-light-grey);
+  border-color: var(--extra-light-gray);
 }
 .pagination:not(.disabled):hover {
   border-color: var(--primary);

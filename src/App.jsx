@@ -1,21 +1,34 @@
+import Cookies from "js-cookie";
 import { Suspense, lazy } from "react";
+import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 // unAuth route
 const UnAuth_Layout = lazy(() =>
   import("./Pages/UnAuthenticated/UnAuthLayout")
 );
-const Login = lazy(() => import("./features/Auth/Login"));
+const Role_Selection = lazy(() =>
+  import("./features/Auth/RoleSelection/RoleSelection")
+);
+const Login = lazy(() => import("./features/Auth/login/Login"));
 const Register = lazy(() => import("./features/Auth/Register"));
 // auth layout
 const Auth_Layout = lazy(() => import("./Pages/AuthLayout/AuthLayout"));
 const Home = lazy(() => import("./Pages/AuthLayout/Home"));
 // admin
 const All_Users = lazy(() => import("./features/Admin/AllUsers"));
-
+// profile
+const Profile_Container = lazy(() =>
+  import("./features/Profile/ProfileContainer")
+);
+const Profile_Admin = lazy(() => import("./features/Profile/ProfileAdmin"));
+const Profile_Student = lazy(() => import("./features/Profile/ProfileStudent"));
+const Profile_Teacher = lazy(() => import("./features/Profile/ProfileTeacher"));
 const PageNotFound = lazy(() => import("./Pages/PageNotFound"));
 
 const App = () => {
-  const isAuth = true;
+  const { token } = useSelector((store) => store.auth);
+  const isAuth = token?.length > 0 && token !== undefined;
+
   return (
     <Suspense>
       <Routes location={location} key={location.pathname}>
@@ -24,10 +37,16 @@ const App = () => {
             <Route index element={<Navigate to="home" replace />} />
             <Route path="home" element={<Home />} />
             <Route path="users" element={<All_Users />} />
+            <Route path="profile" element={<Profile_Container />}>
+              <Route path="admin" element={<Profile_Admin />} />
+              <Route path="student" element={<Profile_Student />} />
+              <Route path="teacher" element={<Profile_Teacher />} />
+            </Route>
           </Route>
         ) : (
           <Route path="/" element={<UnAuth_Layout />}>
-            <Route index element={<Navigate to="login" replace />} />
+            <Route index element={<Navigate to="user-type" replace />} />
+            <Route path="user-type" element={<Role_Selection />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
           </Route>

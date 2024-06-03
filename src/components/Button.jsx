@@ -29,7 +29,7 @@ const Button = ({
   className,
   target,
 }) => {
-  const base_style = ` shadow-main-shadow disabled:cursor-not-allowed disabled:bg-white disabled:text-extra-light-gray  flex items-center gap-2  justify-center text-center h-[50px] py-3 px-4 outline-none rounded-lg transition-all duration-300 ease-in-out text-base font-bold shadow-main-shadow hover:shadow-hover-shadow `;
+  const base_style = `shadow-main-shadow disabled:cursor-not-allowed disabled:bg-white disabled:text-extra-light-gray  flex items-center gap-2  justify-center text-center h-[50px] py-3 px-4 outline-none rounded-lg transition-all duration-300 ease-in-out text-base font-bold shadow-main-shadow hover:shadow-hover-shadow `;
   const styles = {
     primary: `${base_style} bg-primary text-white hover:bg-primary-light text-white  `,
     "primary-outline": `${base_style} border border-primary hover:bg-primary hover:text-white text-primary`,

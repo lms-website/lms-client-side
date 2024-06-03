@@ -15,8 +15,11 @@ const Register = lazy(() => import("./features/Auth/Register"));
 const Auth_Layout = lazy(() => import("./Pages/AuthLayout/AuthLayout"));
 const Home = lazy(() => import("./Pages/AuthLayout/Home"));
 // admin
-const All_Users = lazy(() => import("./features/Admin/AllUsers"));
-const Add_User = lazy(() => import("./features/Admin/Create_User/AddNewUser"));
+const Users_Container = lazy(() =>
+  import("./features/Admin/users/UserContainer")
+);
+const All_Users = lazy(() => import("./features/Admin/users/AllUsers"));
+const Add_User = lazy(() => import("./features/Admin/users/AddNewUser"));
 // profile
 const Profile_Container = lazy(() =>
   import("./features/Profile/ProfileContainer")
@@ -37,7 +40,11 @@ const App = () => {
           <Route path="/" element={<Auth_Layout />}>
             <Route index element={<Navigate to="home" replace />} />
             <Route path="home" element={<Home />} />
-            <Route path="users" element={<All_Users />} />
+            <Route path="users" element={<Users_Container />}>
+              <Route index element={<Navigate to="all-users" />} />
+              <Route path="all-users" element={<All_Users />} />
+              <Route path="create-user" element={<Add_User />} />
+            </Route>
 
             <Route path="profile" element={<Profile_Container />}>
               <Route path="admin" element={<Profile_Admin />} />

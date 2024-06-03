@@ -90,9 +90,10 @@ const Login = () => {
           : `${apiKey}/api/v1/teachers/login`;
       try {
         setLoading(true);
-        console.log(data, "data");
+
         const response = await axios.post(endpoint, data);
-        if (response.status === 201) {
+
+        if (response.status === 201 || response.status === 200) {
           Cookies.set("token", response.data.data, {
             expires: 5,
           });

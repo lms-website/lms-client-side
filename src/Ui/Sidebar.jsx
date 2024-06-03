@@ -11,6 +11,10 @@ import Logo from "../assets/logo/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import { updateAuth } from "../features/Auth/AuthSlice";
+import { RxFileText } from "react-icons/rx";
+import { TbLayoutGridFilled } from "react-icons/tb";
+import { LuFileQuestion } from "react-icons/lu";
+import { GrGroup } from "react-icons/gr";
 const sidebarItems = [
   {
     id: 0,
@@ -27,11 +31,57 @@ const sidebarItems = [
   {
     id: 2,
     link: "/exams",
-    icon: <LuFileText size={20} className="icon" />,
+    icon: <LuFileQuestion size={20} className="icon" />,
     title: "Exams",
+    roleRestrict: "admin",
   },
   {
     id: 3,
+    link: "/results",
+    icon: <RxFileText size={20} className="icon" />,
+    title: "Results",
+    role: "admin,student",
+    roleRestrict: "teacher",
+  },
+  {
+    id: 4,
+    link: "/class-level",
+    icon: <TbLayoutGridFilled size={20} className="icon" />,
+    title: "Class level",
+    role: "admin,student",
+    roleRestrict: "teacher",
+  },
+  {
+    id: 5,
+    link: "/programms",
+    icon: <LuFileText size={20} className="icon" />,
+    title: "Programmes",
+    role: "teacher,admin",
+    roleRestrict: "user",
+  },
+  {
+    id: 6,
+    link: "/groups",
+    icon: <GrGroup size={20} className="icon" />,
+    title: "Groups",
+    role: "admin",
+  },
+  {
+    id: 7,
+    link: "/groups",
+    icon: <GrGroup size={20} className="icon" />,
+    title: "Groups",
+    role: "admin",
+  },
+  {
+    id: 8,
+    link: "/groups",
+    icon: <GrGroup size={20} className="icon" />,
+    title: "Groups",
+    role: "admin",
+  },
+  {
+    id: 9,
     link: "/profile",
     icon: <LuUserCircle size={20} className="icon" />,
     title: "profile",

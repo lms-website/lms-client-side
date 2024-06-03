@@ -16,6 +16,7 @@ const Auth_Layout = lazy(() => import("./Pages/AuthLayout/AuthLayout"));
 const Home = lazy(() => import("./Pages/AuthLayout/Home"));
 // admin
 const All_Users = lazy(() => import("./features/Admin/AllUsers"));
+const Add_User = lazy(() => import("./features/Admin/Create_User/AddNewUser"));
 // profile
 const Profile_Container = lazy(() =>
   import("./features/Profile/ProfileContainer")
@@ -37,6 +38,7 @@ const App = () => {
             <Route index element={<Navigate to="home" replace />} />
             <Route path="home" element={<Home />} />
             <Route path="users" element={<All_Users />} />
+
             <Route path="profile" element={<Profile_Container />}>
               <Route path="admin" element={<Profile_Admin />} />
               <Route path="student" element={<Profile_Student />} />

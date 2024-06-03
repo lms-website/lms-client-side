@@ -47,6 +47,7 @@ const Sidebar = () => {
     dispatch(updateAuth(null));
     navigate("/", { replace: true });
   };
+  console.log(role, "k");
   return (
     <div className="w-[70px] md:w-[250px] bg-white h-screen overflow-y-auto py-4 px-3">
       <img src={Logo} alt="logo" className=" w-[40px] md:w-[85px] mb-5" />

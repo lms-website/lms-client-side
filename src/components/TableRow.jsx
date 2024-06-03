@@ -26,7 +26,6 @@ const TableRow = ({
   const [previous, setPrevious] = useState(data?.pagination?.prev?.page);
   const [loading, setLoading] = useState(false);
 
-  console.log(next, "next", previous);
   const getData = async (page) => {
     const controller = new AbortController();
     const signal = controller.signal;

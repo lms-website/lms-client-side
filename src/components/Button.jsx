@@ -49,7 +49,7 @@ const Button = ({
       className={`${styles[type]} ${className}`}
     >
       {children}
-      {loading && <Spinner />}
+      {loading && <Spinner className="w-6 h-6" />}
     </button>
   );
 };

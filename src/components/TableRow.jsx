@@ -19,6 +19,7 @@ const TableRow = ({
   handleDelete,
   handleUpdate,
   endpoint = "",
+  redirect = "",
 }) => {
   const { token } = useSelector((store) => store.auth);
   const [data, setData] = useState();
@@ -42,13 +43,11 @@ const TableRow = ({
         setNext(response.data?.pagination?.next?.page || null);
         setPrevious(response.data?.pagination?.prev?.page || null);
       }
-      console.log(response, "pag");
     } catch (error) {
-      console.log("Error while pagination: ", error);
+      // console.log("Error while pagination: ", error);
     } finally {
       setLoading(false);
     }
-    console.log("kk");
   };
   useEffect(() => {
     getData(1);
@@ -57,7 +56,11 @@ const TableRow = ({
     <div className="grid gap-4">
       <div className="flex justify-between gap-1 items-center">
         <h2 className="text-[20px] font-bold text-dark-gray">{title}</h2>
-        <Button type="primary-outline" onClick={addNewButtonClick}>
+        <Button
+          to={redirect}
+          type="primary-outline"
+          onClick={addNewButtonClick}
+        >
           {addNewButtonTitle}
         </Button>
       </div>

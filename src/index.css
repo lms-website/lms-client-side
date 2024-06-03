@@ -34,6 +34,16 @@
   .sidebar .active svg {
     @apply text-white;
   }
+
+  .input-error {
+    @apply border-error;
+  }
+  .label {
+    @apply text-primary text-base font-bold;
+  }
+  .input {
+    @apply border border-light-gray active:border-primary outline-none py-3 px-4 rounded-lg focus:border-primary text-dark-gray caret-primary placeholder:text-extra-light-gray;
+  }
 }
 /* Sidebar */
 .sidebar li:hover {

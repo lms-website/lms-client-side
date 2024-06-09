@@ -15,6 +15,8 @@ import { RxFileText } from "react-icons/rx";
 import { TbLayoutGridFilled } from "react-icons/tb";
 import { LuFileQuestion } from "react-icons/lu";
 import { GrGroup } from "react-icons/gr";
+import { MdNumbers } from "react-icons/md";
+import { IoTodayOutline } from "react-icons/io5";
 const sidebarItems = [
   {
     id: 0,
@@ -61,16 +63,16 @@ const sidebarItems = [
   },
   {
     id: 6,
-    link: "/groups",
-    icon: <GrGroup size={20} className="icon" />,
-    title: "Groups",
+    link: "/Academic-year",
+    icon: <MdNumbers size={20} className="icon" />,
+    title: "Academic Year",
     role: "admin",
   },
   {
     id: 7,
-    link: "/groups",
-    icon: <GrGroup size={20} className="icon" />,
-    title: "Groups",
+    link: "/academic-terms",
+    icon: <IoTodayOutline size={20} className="icon" />,
+    title: "Academic Terms",
     role: "admin",
   },
   {
@@ -97,30 +99,39 @@ const Sidebar = () => {
     dispatch(updateAuth(null));
     navigate("/", { replace: true });
   };
+  const hasAccess = (item) => {
+    if (item.roleRestrict && item.roleRestrict.split(",").includes(role)) {
+      return false;
+    }
+    if (item.role && !item.role.split(",").includes(role)) {
+      return false;
+    }
+    return true;
+  };
   console.log(role, "k");
   return (
     <div className="w-[70px] md:w-[250px] bg-white h-screen overflow-y-auto py-4 px-3">
       <img src={Logo} alt="logo" className=" w-[40px] md:w-[85px] mb-5" />
       <ul className=" sidebar flex flex-col gap-2">
-        {sidebarItems?.map((item) =>
-          role !== "admin" && item?.title !== "users" ? null : (
+        {sidebarItems.map((item) =>
+          hasAccess(item) ? (
             <li
               key={item.id}
-              className="outline-none  transition-all duration-300 ease-in-out rounded-lg"
+              className="outline-none transition-all duration-300 ease-in-out rounded-lg"
             >
               <NavLink
-                to={item?.link}
+                to={item.link}
                 className="w-full flex py-3 rounded-lg px-3 items-center gap-2"
               >
                 <span className="flex w-6 h-full transition-all duration-300 ease-in-out">
-                  {item?.icon}
+                  {item.icon}
                 </span>
                 <span className="hidden md:flex text-[18px] text-light-gray transition-all duration-300 ease-in-out sidebar_text">
-                  {item?.title}
+                  {item.title}
                 </span>
               </NavLink>
             </li>
-          )
+          ) : null
         )}
         <li
           role="button"

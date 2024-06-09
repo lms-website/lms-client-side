@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
+import Button from "../../components/Button";
+import Table from "../../components/Table";
+
 import { useSelector } from "react-redux";
+import axios from "axios";
 import {
   apiKey,
   convertYearToISOString,
+  formateDate,
   generateYears,
 } from "../../Utils/helper";
-import axios from "axios";
-import { toast } from "react-toastify";
-import Button from "../../components/Button";
-import Table from "../../components/Table";
 import Spinner from "../../Ui/Spinner";
 import {
   LuChevronLeft,
@@ -16,29 +17,30 @@ import {
   LuPenSquare,
   LuTrash2,
 } from "react-icons/lu";
+import { toast } from "react-toastify";
 import { Dialog } from "primereact/dialog";
-import Input from "../../components/Input";
 import { Dropdown } from "primereact/dropdown";
+import Input from "../../components/Input";
 import ErrorMessage from "../../components/ErrorMessage";
-const columns = ["Name", "Description", "Duration", "Actions"];
-const AcademicTerm = () => {
+const columns = ["Name", "From", "To", "Students", "Teachers", "Actions"];
+const AcademicYearContainer = () => {
   const { token } = useSelector((store) => store.auth);
   const [data, setData] = useState();
   const [next, setNext] = useState(data?.pagination?.next?.page);
   const [previous, setPrevious] = useState(data?.pagination?.prev?.page);
   const [loading, setLoading] = useState(false);
   const [buttonType, setButtonType] = useState("unactive");
-  // add new acadamic term
-  const [addNewTermPopup, setAddNewTermPopup] = useState(false);
-  const [newAcadamicTermData, setNewAcadamicTermData] = useState();
-  const [loadingNewAcadamicTerm, setLoadingNewAcadamicTerm] = useState(false);
-  const [addNewTermError, setAddNewTermError] = useState();
+  // add new acadamic year
+  const [addNewYearPopup, setAddNewYearPopup] = useState(false);
+  const [newAcademicYearData, setNewAcademicYearData] = useState();
+  const [loadingNewAcademicYear, setLoadingNewAcademicYear] = useState(false);
+  const [addNewYearError, setAddNewYearError] = useState();
   //  update
-  const [updateNewTermPopup, setUpdateNewTermPopup] = useState(false);
-  const [updateAcadamicTermData, setUpdateAcadamicTermData] = useState();
-  const [loadingUpdateAcadamicTerm, setLoadingUpdateAcadamicTerm] =
+  const [updateNewYearPopup, setUpdateNewYearPopup] = useState(false);
+  const [updateAcademicYearData, setUpdateAcademicYearData] = useState();
+  const [loadingUpdateAcademicYear, setLoadingUpdateAcademicYear] =
     useState(false);
-  const [updateNewTermError, setUpdateNewTermError] = useState();
+  const [updateNewYearError, setUpdateNewYearError] = useState();
   const [fromChange, setFromChange] = useState(false);
   const [toChange, setToChange] = useState(false);
   const years = generateYears();
@@ -49,7 +51,7 @@ const AcademicTerm = () => {
       setLoading(true);
 
       const response = await axios.get(
-        `${apiKey}/api/v1/academic-terms/?page=${page}`,
+        `${apiKey}/api/v1/academic-years/?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -77,7 +79,7 @@ const AcademicTerm = () => {
     const signal = controller.signal;
     try {
       const response = await axios.delete(
-        `${apiKey}/api/v1/academic-terms/${id}`,
+        `${apiKey}/api/v1/academic-years/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -85,9 +87,8 @@ const AcademicTerm = () => {
           signal,
         }
       );
-
       if (response.status === 201 || response.status === 200) {
-        toast.success("Sucessfully delete acadmic term");
+        toast.success("Sucessfully delete acadmic year");
         getData(1);
       }
     } catch (error) {
@@ -97,16 +98,16 @@ const AcademicTerm = () => {
 
   // add new academic year
   const handleAddChange = (field, value) => {
-    setNewAcadamicTermData((pre) => ({ ...pre, [field]: value }));
+    setNewAcademicYearData((pre) => ({ ...pre, [field]: value }));
     if (value === "") {
-      setAddNewTermError((pre) => ({
+      setAddNewYearError((pre) => ({
         ...pre,
         [field]: {
           message: "This field is required",
         },
       }));
     } else {
-      setAddNewTermError((pre) => ({
+      setAddNewYearError((pre) => ({
         ...pre,
         [field]: {
           message: "",
@@ -118,8 +119,8 @@ const AcademicTerm = () => {
   const handleAddAcadamicError = () => {
     let hasErrors = false;
 
-    if (newAcadamicTermData?.name === "" || !newAcadamicTermData?.name) {
-      setAddNewTermError((prev) => ({
+    if (newAcademicYearData?.name === "" || !newAcademicYearData?.name) {
+      setAddNewYearError((prev) => ({
         ...prev,
         name: {
           message: "This field is require",
@@ -128,7 +129,7 @@ const AcademicTerm = () => {
 
       hasErrors = true;
     } else {
-      setAddNewTermError((prev) => ({
+      setAddNewYearError((prev) => ({
         ...prev,
         name: {
           message: "",
@@ -136,55 +137,56 @@ const AcademicTerm = () => {
       }));
     }
     if (
-      newAcadamicTermData?.description === "" ||
-      !newAcadamicTermData?.description
+      newAcademicYearData?.fromYear === "" ||
+      !newAcademicYearData?.fromYear
     ) {
-      setAddNewTermError((prev) => ({
+      setAddNewYearError((prev) => ({
         ...prev,
-        description: {
+        fromYear: {
           message: "This field is require",
         },
       }));
 
       hasErrors = true;
     } else {
-      setAddNewTermError((prev) => ({
+      setAddNewYearError((prev) => ({
         ...prev,
-        description: {
+        fromYear: {
           message: "",
         },
       }));
     }
-    if (
-      newAcadamicTermData?.duration === "" ||
-      !newAcadamicTermData?.duration
-    ) {
-      setAddNewTermError((prev) => ({
+    if (newAcademicYearData?.toYear === "" || !newAcademicYearData?.toYear) {
+      setAddNewYearError((prev) => ({
         ...prev,
-        duration: {
+        toYear: {
           message: "This field is require",
         },
       }));
 
       hasErrors = true;
     } else {
-      setAddNewTermError((prev) => ({
+      setAddNewYearError((prev) => ({
         ...prev,
-        duration: {
+        toYear: {
           message: "",
         },
       }));
     }
     return hasErrors;
   };
-  const AddNewAcademicTerm = async () => {
+  const AddNewAcademicYear = async () => {
     const hasErrors = handleAddAcadamicError();
+    const { fromYear, toYear, name } = newAcademicYearData;
+    const from = convertYearToISOString(fromYear);
+    const to = convertYearToISOString(toYear);
+    const sendData = { fromYear: from, toYear: to, name };
     if (!hasErrors) {
       try {
-        setLoadingNewAcadamicTerm(true);
+        setLoadingNewAcademicYear(true);
         const response = await axios.post(
-          `${apiKey}/api/v1/academic-terms/`,
-          newAcadamicTermData,
+          `${apiKey}/api/v1/academic-years`,
+          sendData,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -193,56 +195,61 @@ const AcademicTerm = () => {
         );
 
         if (response.status === 201) {
-          toast.success("Sucessfully Create new acadamic term");
-          setAddNewTermPopup(false);
-          setNewAcadamicTermData();
+          toast.success("Sucessfully Create new acadamic year");
+          setAddNewYearPopup(false);
+          setNewAcademicYearData();
           getData(1);
         }
       } catch (error) {
-        if (error?.response?.data?.message === "Academic term already exist") {
-          setAddNewTermError((prev) => ({
+        if (error?.response?.data?.message === "Academic year already exist") {
+          setAddNewYearError((prev) => ({
             ...prev,
             name: {
-              message: "Academic term already exist",
+              message: "Academic year already exist",
             },
           }));
         }
       } finally {
-        setLoadingNewAcadamicTerm(false);
+        setLoadingNewAcademicYear(false);
       }
     }
   };
   useEffect(() => {
     if (
-      newAcadamicTermData?.name &&
-      newAcadamicTermData?.description &&
-      newAcadamicTermData?.duration &&
-      !addNewTermError?.name?.message &&
-      !addNewTermError?.description?.message &&
-      !addNewTermError?.duration?.message
+      newAcademicYearData?.name &&
+      newAcademicYearData?.fromYear &&
+      newAcademicYearData?.toYear &&
+      !addNewYearError?.name?.message &&
+      !addNewYearError?.fromYear?.message &&
+      !addNewYearError?.toYear?.message
     ) {
       setButtonType("primary-outline");
     } else {
       setButtonType("unactive");
     }
-  }, [newAcadamicTermData, addNewTermError]);
+  }, [newAcademicYearData, addNewYearError]);
   // update
   const handleUpdate = (item) => {
-    setUpdateNewTermPopup(true);
+    setUpdateNewYearPopup(true);
 
-    setUpdateAcadamicTermData(item);
+    const { fromYear, toYear, _id, name } = item;
+    const newDateFrom = new Date(fromYear);
+    const newDateTo = new Date(toYear);
+    const from = newDateFrom.getFullYear();
+    const to = newDateTo.getFullYear();
+    setUpdateAcademicYearData({ fromYear: from, toYear: to, _id, name });
   };
   const handleUpdateChange = (field, value) => {
-    setUpdateAcadamicTermData((pre) => ({ ...pre, [field]: value }));
+    setUpdateAcademicYearData((pre) => ({ ...pre, [field]: value }));
     if (value === "") {
-      setUpdateNewTermError((pre) => ({
+      setUpdateNewYearError((pre) => ({
         ...pre,
         [field]: {
           message: "This field is required",
         },
       }));
     } else {
-      setUpdateNewTermError((pre) => ({
+      setUpdateNewYearError((pre) => ({
         ...pre,
         [field]: {
           message: "",
@@ -251,12 +258,14 @@ const AcademicTerm = () => {
     }
   };
   const handleSubmitUpdate = async () => {
-    const { description, duration, name } = updateAcadamicTermData;
-
-    const sendData = { description, duration, name };
+    const { fromYear, toYear, name } = updateAcademicYearData;
+    const from = fromChange ? convertYearToISOString(fromYear) : fromYear;
+    const to = toChange ? convertYearToISOString(toYear) : toYear;
+    const sendData = { fromYear: from, toYear: to, name };
     try {
+      setLoadingUpdateAcademicYear(true);
       const response = await axios.put(
-        `${apiKey}/api/v1/academic-terms/${updateAcadamicTermData?._id}`,
+        `${apiKey}/api/v1/academic-years/${updateAcademicYearData?._id}`,
         sendData,
         {
           headers: {
@@ -266,20 +275,22 @@ const AcademicTerm = () => {
       );
 
       if (response.status === 201 || response.status === 200) {
-        setUpdateNewTermPopup(false);
+        setUpdateNewYearPopup(false);
         setFromChange(false);
         setToChange(false);
         getData(1);
       }
     } catch (error) {
-      if (error?.response?.data?.message === "Academic term alredy exist") {
-        setUpdateNewTermError((prev) => ({
+      if (error?.response?.data?.message === "Academic year alredy exist") {
+        setUpdateNewYearError((prev) => ({
           ...prev,
           name: {
-            message: "Academic term already exist",
+            message: "Academic year already exist",
           },
         }));
       }
+    } finally {
+      setLoadingUpdateAcademicYear(false);
     }
   };
 
@@ -289,13 +300,13 @@ const AcademicTerm = () => {
         <div className="grid gap-4">
           <div className="flex justify-between gap-1 items-center">
             <h2 className="text-[20px] font-bold text-dark-gray">
-              Academic Term
+              Academic year
             </h2>
             <Button
               type="primary-outline"
-              onClick={() => setAddNewTermPopup(true)}
+              onClick={() => setAddNewYearPopup(true)}
             >
-              Add academic term
+              Add academic year
             </Button>
           </div>
 
@@ -324,10 +335,16 @@ const AcademicTerm = () => {
                     </td>
 
                     <td className="py-3 text-light-gray capitalize px-2">
-                      {item?.description}
+                      {formateDate(item?.fromYear)}
                     </td>
                     <td className="py-3 text-light-gray capitalize px-2">
-                      {item?.duration}
+                      {formateDate(item?.toYear)}
+                    </td>
+                    <td className="py-3 text-light-gray capitalize px-2">
+                      {item?.students?.length}
+                    </td>
+                    <td className="py-3 text-light-gray capitalize px-2">
+                      {item?.teachers?.length}
                     </td>
                     <td className="py-3 text-light-gray capitalize px-2">
                       <div className="flex items-center gap-2">
@@ -381,116 +398,143 @@ const AcademicTerm = () => {
       {/* add new academic year */}
       <Dialog
         className="w-[700px] max-w-[95%]"
-        visible={addNewTermPopup}
-        onHide={() => setAddNewTermPopup(false)}
-        header="Add new acadamic term"
+        visible={addNewYearPopup}
+        onHide={() => setAddNewYearPopup(false)}
+        header="Add new acadamic year"
       >
         <div className="grid gap-4">
           <Input
             id="name"
             label="Name"
-            value={newAcadamicTermData?.name || ""}
+            value={newAcademicYearData?.name || ""}
             type="text"
             placeholder="Enter your name"
-            error={addNewTermError?.name?.message}
+            error={addNewYearError?.name?.message}
             handleChange={handleAddChange}
           />
-          <div className="grid gap-1">
-            <label htmlFor="description" className="label">
-              Description
-            </label>
-            <textarea
-              value={newAcadamicTermData?.description || ""}
-              onChange={(e) => handleAddChange("description", e.target.value)}
-              id="description"
-              className={`resize-none h-[10vh] input ${
-                addNewTermError?.description?.message && "input-error"
-              }`}
-              placeholder="Enter terms descriptions"
-            ></textarea>
-            {addNewTermError?.description?.message && (
-              <ErrorMessage message={addNewTermError?.description?.message} />
-            )}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
+            <div className="grid gap-1">
+              <label htmlFor="from" className="label">
+                From
+              </label>
+              <Dropdown
+                inputId="from"
+                value={newAcademicYearData?.fromYear || ""}
+                onChange={(e) => handleAddChange("fromYear", e.target.value)}
+                options={years}
+                optionLabel="name"
+                placeholder="Select from year"
+                className={`w-full input !py-2 ${
+                  addNewYearError?.fromYear?.message && "!border-error"
+                } `}
+              />
+              {addNewYearError?.fromYear?.message && (
+                <ErrorMessage message={addNewYearError?.fromYear?.message} />
+              )}
+            </div>
+            <div className="grid gap-1">
+              <label htmlFor="to" className="label">
+                To
+              </label>
+              <Dropdown
+                value={newAcademicYearData?.toYear || ""}
+                onChange={(e) => handleAddChange("toYear", e.target.value)}
+                options={years}
+                optionLabel="name"
+                placeholder="Select to year"
+                className={`w-full input !py-2 ${
+                  addNewYearError?.toYear?.message && "!border-error"
+                } `}
+              />
+              {addNewYearError?.toYear?.message && (
+                <ErrorMessage message={addNewYearError?.toYear?.message} />
+              )}
+            </div>
           </div>
-          <Input
-            id="duration"
-            label="Duration"
-            value={newAcadamicTermData?.duration || ""}
-            type="text"
-            placeholder="Enter terms duration"
-            error={addNewTermError?.duration?.message}
-            handleChange={handleAddChange}
-          />
-
           <div className="">
             <Button
-              loading={loadingNewAcadamicTerm}
-              disabled={loadingNewAcadamicTerm}
+              loading={loadingNewAcademicYear}
+              disabled={loadingNewAcademicYear}
               type={buttonType}
               className="w-full"
-              onClick={AddNewAcademicTerm}
+              onClick={AddNewAcademicYear}
             >
-              Create acadamic term
+              Create acadamic year
             </Button>
           </div>
         </div>
       </Dialog>
-      {/* end new academic term */}
-      {/* update new academic term */}
+      {/* end new academic year */}
+      {/* update new academic year */}
       <Dialog
         className="w-[700px] max-w-[95%]"
-        visible={updateNewTermPopup}
-        onHide={() => setUpdateNewTermPopup(false)}
-        header="Update acadamic term"
+        visible={updateNewYearPopup}
+        onHide={() => setUpdateNewYearPopup(false)}
+        header="Update acadamic year"
       >
         <div className="grid gap-4">
           <Input
             id="name"
             label="Name"
-            value={updateAcadamicTermData?.name || ""}
+            value={updateAcademicYearData?.name || ""}
             type="text"
             placeholder="Enter your name"
-            error={updateNewTermError?.name?.message}
+            error={updateNewYearError?.name?.message}
             handleChange={handleUpdateChange}
           />
-          <div className="grid gap-1">
-            <label htmlFor="description" className="label">
-              Description
-            </label>
-            <textarea
-              value={updateAcadamicTermData?.description || ""}
-              onChange={(e) =>
-                handleUpdateChange("description", e.target.value)
-              }
-              id="description"
-              className={`resize-none h-[10vh] input ${
-                updateNewTermError?.description?.message && "input-error"
-              }`}
-              placeholder="Enter terms descriptions"
-            ></textarea>
-            {updateNewTermError?.description?.message && (
-              <ErrorMessage
-                message={updateNewTermError?.description?.message}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 items-start">
+            <div className="grid gap-1">
+              <label htmlFor="from" className="label">
+                From
+              </label>
+              <Dropdown
+                inputId="from"
+                value={updateAcademicYearData?.fromYear || ""}
+                onChange={(e) => {
+                  handleUpdateChange("fromYear", e.target.value);
+                  setFromChange(true);
+                }}
+                options={years}
+                optionLabel="name"
+                placeholder="Select from year"
+                className={`w-full input !py-2 ${
+                  updateNewYearError?.fromYear?.message && "!border-error"
+                } `}
               />
-            )}
+              {updateNewYearError?.fromYear?.message && (
+                <ErrorMessage message={updateNewYearError?.fromYear?.message} />
+              )}
+            </div>
+            <div className="grid gap-1">
+              <label htmlFor="to" className="label">
+                To
+              </label>
+              <Dropdown
+                value={updateAcademicYearData?.toYear || ""}
+                onChange={(e) => {
+                  handleUpdateChange("toYear", e.target.value);
+                  setToChange(true);
+                }}
+                options={years}
+                optionLabel="name"
+                placeholder="Select to year"
+                className={`w-full input !py-2 ${
+                  updateNewYearError?.toYear?.message && "!border-error"
+                } `}
+              />
+              {updateNewYearError?.toYear?.message && (
+                <ErrorMessage message={updateNewYearError?.toYear?.message} />
+              )}
+            </div>
           </div>
-          <Input
-            id="duration"
-            label="Duration"
-            value={updateAcadamicTermData?.duration || ""}
-            type="text"
-            placeholder="Enter terms duration"
-            error={updateNewTermError?.duration?.message}
-            handleChange={handleUpdateChange}
-          />
           <div className="">
             <Button
-              loading={loadingUpdateAcadamicTerm}
-              disabled={loadingUpdateAcadamicTerm}
+              loading={loadingUpdateAcademicYear}
+              disabled={loadingUpdateAcademicYear}
               className="w-full"
               onClick={handleSubmitUpdate}
             >
-              {`update terms`}
+              {`update ${updateAcademicYearData?.name}`}
             </Button>
           </div>
         </div>
@@ -500,4 +544,4 @@ const AcademicTerm = () => {
   );
 };
 
-export default AcademicTerm;
+export default AcademicYearContainer;

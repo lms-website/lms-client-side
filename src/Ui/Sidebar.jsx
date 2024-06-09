@@ -29,6 +29,7 @@ const sidebarItems = [
     link: "/users",
     icon: <LuUsers2 size={20} className="icon" />,
     title: "users",
+    roleRestrict: "teacher,student",
   },
   {
     id: 2,
@@ -37,14 +38,7 @@ const sidebarItems = [
     title: "Exams",
     roleRestrict: "admin",
   },
-  {
-    id: 3,
-    link: "/results",
-    icon: <RxFileText size={20} className="icon" />,
-    title: "Results",
-    role: "admin,student",
-    roleRestrict: "teacher",
-  },
+
   {
     id: 4,
     link: "/class-level",
@@ -58,15 +52,15 @@ const sidebarItems = [
     link: "/programms",
     icon: <LuFileText size={20} className="icon" />,
     title: "Programmes",
-    role: "teacher,admin",
-    roleRestrict: "user",
+    role: "admin",
+    roleRestrict: "user,teacher",
   },
   {
     id: 6,
     link: "/Academic-year",
     icon: <MdNumbers size={20} className="icon" />,
     title: "Academic Year",
-    role: "admin",
+    role: "admin,teacher",
   },
   {
     id: 7,

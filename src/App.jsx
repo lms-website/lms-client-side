@@ -32,6 +32,11 @@ const Academic_Year = lazy(() =>
 const Academic_Terms = lazy(() =>
   import("./features/AcademicTerm/AcademicTerm")
 );
+// class level
+const Class_Level = lazy(() => import("./features/ClassLevel/ClassLevel"));
+
+// programmes
+const Programmes = lazy(() => import("./features/Program/ProgramList"));
 
 const Profile_Admin = lazy(() => import("./features/Profile/ProfileAdmin"));
 const Profile_Student = lazy(() => import("./features/Profile/ProfileStudent"));
@@ -57,6 +62,8 @@ const App = () => {
             {/* Academic-year */}
             <Route path="Academic-year" element={<Academic_Year />} />
             <Route path="academic-terms" element={<Academic_Terms />} />
+            <Route path="class-level" element={<Class_Level />} />
+            <Route path="programms" element={<Programmes />} />
             <Route path="profile" element={<Profile_Container />}>
               <Route path="admin" element={<Profile_Admin />} />
               <Route path="student" element={<Profile_Student />} />

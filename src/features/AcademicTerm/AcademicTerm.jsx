@@ -27,6 +27,7 @@ const AcademicTerm = () => {
   const [next, setNext] = useState(data?.pagination?.next?.page);
   const [previous, setPrevious] = useState(data?.pagination?.prev?.page);
   const [loading, setLoading] = useState(false);
+
   const [buttonType, setButtonType] = useState("unactive");
   // add new acadamic term
   const [addNewTermPopup, setAddNewTermPopup] = useState(false);
@@ -39,9 +40,7 @@ const AcademicTerm = () => {
   const [loadingUpdateAcadamicTerm, setLoadingUpdateAcadamicTerm] =
     useState(false);
   const [updateNewTermError, setUpdateNewTermError] = useState();
-  const [fromChange, setFromChange] = useState(false);
-  const [toChange, setToChange] = useState(false);
-  const years = generateYears();
+
   const getData = async (page) => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -72,6 +71,7 @@ const AcademicTerm = () => {
   useEffect(() => {
     getData(1);
   }, []);
+
   const handleDelete = async (id) => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -267,8 +267,7 @@ const AcademicTerm = () => {
 
       if (response.status === 201 || response.status === 200) {
         setUpdateNewTermPopup(false);
-        setFromChange(false);
-        setToChange(false);
+
         getData(1);
       }
     } catch (error) {

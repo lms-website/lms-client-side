@@ -24,6 +24,15 @@ const Add_User = lazy(() => import("./features/Admin/users/AddNewUser"));
 const Profile_Container = lazy(() =>
   import("./features/Profile/ProfileContainer")
 );
+// Academic-year
+const Academic_Year = lazy(() =>
+  import("./features/AcademicYear/AcademicYearContainer")
+);
+// Academic-terms
+const Academic_Terms = lazy(() =>
+  import("./features/AcademicTerm/AcademicTerm")
+);
+
 const Profile_Admin = lazy(() => import("./features/Profile/ProfileAdmin"));
 const Profile_Student = lazy(() => import("./features/Profile/ProfileStudent"));
 const Profile_Teacher = lazy(() => import("./features/Profile/ProfileTeacher"));
@@ -45,7 +54,9 @@ const App = () => {
               <Route path="all-users" element={<All_Users />} />
               <Route path="create-user" element={<Add_User />} />
             </Route>
-
+            {/* Academic-year */}
+            <Route path="Academic-year" element={<Academic_Year />} />
+            <Route path="academic-terms" element={<Academic_Terms />} />
             <Route path="profile" element={<Profile_Container />}>
               <Route path="admin" element={<Profile_Admin />} />
               <Route path="student" element={<Profile_Student />} />

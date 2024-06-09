@@ -94,11 +94,11 @@ const Login = () => {
         const response = await axios.post(endpoint, data);
 
         if (response.status === 201 || response.status === 200) {
-          Cookies.set("token", response.data.data, {
+          Cookies.set("token", response.data.data.token, {
             expires: 5,
           });
           toast.success("Successfully logged in");
-          dispatch(updateAuth(response.data.data));
+          dispatch(updateAuth(response.data.data.token));
           dispatch(updateRole(Cookies.get("role")));
           navigate("/");
         }

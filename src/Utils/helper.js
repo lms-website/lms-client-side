@@ -17,3 +17,22 @@ export function formateDate(date) {
   const day = newDate.getDate();
   return `${day}/${month}/${year}`;
 }
+export const generateYears = (
+  startYear = new Date().getFullYear(),
+  endYear = 1900
+) => {
+  const years = [];
+  for (let year = startYear; year >= endYear; year--) {
+    years.push({
+      name: year.toString(),
+      value: year,
+    });
+  }
+  return years;
+};
+
+export const convertYearToISOString = (year) => {
+  const date = new Date(Date.UTC(year, 0, 1, 0, 0, 2, 24));
+
+  return date.toISOString();
+};

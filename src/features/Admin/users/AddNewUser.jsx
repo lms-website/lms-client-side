@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { apiKey } from "../../../Utils/helper";
@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 const AddNewUser = () => {
   const [searchParam, setSearchParam] = useSearchParams();
   const role = searchParam.get("role");
+  const navigate = useNavigate();
   const { token } = useSelector((store) => store.auth);
   const [data, setData] = useState();
   const [error, setError] = useState();
@@ -23,7 +24,7 @@ const AddNewUser = () => {
       setError((pre) => ({
         ...pre,
         [field]: {
-          message: "requiredField",
+          message: "This field is required",
         },
       }));
     } else if (field === "password") {
@@ -181,6 +182,7 @@ const AddNewUser = () => {
             toast.success("Sucessfully Create new student");
           }
           setData();
+          navigate("/users/all-users");
         }
       } catch (error) {
         console.log("Error while creating new user", error);
